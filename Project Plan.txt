@@ -1,0 +1,12 @@
+Proiect .Net: Firma de inchiriat masini (Rent a Car)
+
+CRUD
+4 controllers: Cars, Clients, Employees, Jobs
+
+Tables: Cars, Clients, Employees, Jobs, Offices, Locations
+
+Relations: 	Locations-Offices 1-1
+		Jobs-Employees 1-m
+		Clients-Cars m-m
+
+Roles: Admin, Employee, Client
