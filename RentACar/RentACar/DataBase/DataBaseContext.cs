@@ -5,9 +5,8 @@ namespace RentACar.DataBase
 {
     public class DataBaseContext : DbContext
     {
-        public DbSet<Client> ClientsTable { get; set; }
+        public DbSet<User> UsersTable { get; set; }
         public DbSet<Car> CarsTable { get; set; }
-        public DbSet<Employee> EmployeesTable { get; set; }
         public DbSet<Job> JobsTable { get; set; }
         public DbSet<Location> LocationsTable { get; set; }
         public DbSet<Office> OfficesTable { get; set; }
@@ -37,7 +36,7 @@ namespace RentACar.DataBase
                 .HasForeignKey(r => r.CarId);
 
             modelBuilder.Entity<Rented>()
-                .HasOne<Client>(r => r.Client)
+                .HasOne<User>(r => r.Client)
                 .WithMany(c => c.Rented)
                 .HasForeignKey(r => r.ClientId);
 

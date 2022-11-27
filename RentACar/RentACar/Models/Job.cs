@@ -8,6 +8,6 @@ namespace RentACar.Models
         public string Description { get; set; } = default!;
         public int MinSalary { get; set; } = 1500;
         public int MaxSalary { get; set; } = 10000;
-        public List<Employee> Employees { get; set; } = default!;
+        public List<User> Employees { get; set; } = default!;
     }
 }

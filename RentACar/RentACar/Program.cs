@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RentACar.DataBase;
+using RentACar.Helpers;
+using RentACar.Helpers.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,12 @@ builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(b
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+builder.Services.AddUtils();
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
 
