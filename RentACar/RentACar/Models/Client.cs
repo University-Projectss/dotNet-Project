@@ -1,4 +1,5 @@
 ﻿using RentACar.Models.Base;
+using System.Text.Json.Serialization;
 
 namespace RentACar.Models
 {
@@ -11,6 +12,9 @@ namespace RentACar.Models
         public int Age { get; set; } = default!;
         public List<Rented> Rented { get; set; } = default!;
         public string RoleName { get; set; } = "Client";
+
+        [JsonIgnore]
+        public string PasswordHash { get; set; } = default!;
 
     }
 }
