@@ -6,7 +6,6 @@ namespace RentACar.Models
     {
         public string City { get; set; } = default!;
         public string Street { get; set; } = default!;
-
         public Office Office { get; set; } = default!;
     }
 }

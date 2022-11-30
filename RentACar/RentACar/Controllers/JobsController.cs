@@ -22,8 +22,6 @@ namespace RentACar.Controllers
         }
 
         // POST - add job - doar admin
-
-        //create job endpoint
         [HttpPost("create"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<string>> CreateJob(JobRequestDto job)
         {
