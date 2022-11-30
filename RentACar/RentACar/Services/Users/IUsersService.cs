@@ -8,5 +8,6 @@ namespace RentACar.Services.Users
     {
         UserResponseDto Authentificate(UserRequestDto model);
         Task Create(User newUser);
+        User GetById(Guid id);
     }
 }

@@ -12,6 +12,5 @@ namespace RentACar.Models.Base
 
         public DateTime DateCreated { get; set; }
 
-        public DateTime? DateModified { get; set; }
     }
 }

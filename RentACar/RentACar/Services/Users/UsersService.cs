@@ -36,5 +36,10 @@ namespace RentACar.Services.Users
             await _userRepository.CreateAsync(newUser);
             await _userRepository.SaveAsync();
         }
+
+        public User GetById(Guid id)
+        {
+            return _userRepository.FindById(id);
+        }
     }
 }

@@ -35,6 +35,11 @@ namespace RentACar.Repositories.GenericRepository
             return false;
         }
 
+        public TEntity FindById(object id)
+        {
+            return _table.Find(id);
+        }
+
         //to be implemented
     }
 }

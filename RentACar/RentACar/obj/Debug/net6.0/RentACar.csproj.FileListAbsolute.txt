@@ -84,3 +84,7 @@ C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\obj\Debug\net6.0\refi
 C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\obj\Debug\net6.0\RentACar.pdb
 C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\obj\Debug\net6.0\RentACar.genruntimeconfig.cache
 C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\obj\Debug\net6.0\ref\RentACar.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\bin\Debug\net6.0\Scrutor.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\RentACar\RentACar\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
