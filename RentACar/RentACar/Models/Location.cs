@@ -8,6 +8,5 @@ namespace RentACar.Models
         public string Street { get; set; } = default!;
 
         public Office Office { get; set; } = default!;
-        public Guid OfficeId { get; set; }
     }
 }

@@ -5,10 +5,12 @@ using RentACar.Models.DTOs.Users;
 using RentACar.Models;
 using RentACar.Services.Jobs;
 using RentACar.Models.DTOs.Jobs;
+using Microsoft.AspNetCore.Authorization;
+using RentACar.Models.Enums;
 
 namespace RentACar.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/jobs")]
     [ApiController]
     public class JobsController : ControllerBase
     {
@@ -19,8 +21,10 @@ namespace RentACar.Controllers
             _jobService = jobService;
         }
 
+        // POST - add job - doar admin
+
         //create job endpoint
-        [HttpPost("create")]
+        [HttpPost("create"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<string>> CreateJob(JobRequestDto job)
         {
             var jobToCreate = new Job

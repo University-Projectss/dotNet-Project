@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RentACar.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/authenticate")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
@@ -91,8 +91,7 @@ namespace RentACar.Controllers
         }
 
         //Create new Admin endpoint
-        //[Authorization(Roles.Admin)]
-        [HttpPost("create-admin")]
+        [HttpPost("create-admin"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<CreateUserResponseDto>> CreateAdmin(UserRequestDto adm)
         {
             var userToCreate = new User

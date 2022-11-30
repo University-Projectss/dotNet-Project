@@ -19,7 +19,7 @@ namespace RentACar.DataBase
             modelBuilder.Entity<Office>()
                 .HasOne(o => o.Location)
                 .WithOne(l => l.Office)
-                .HasForeignKey<Location>(l => l.OfficeId);
+                .HasForeignKey<Office>(o => o.LocationId);
 
             //One to Many
             modelBuilder.Entity<Job>()

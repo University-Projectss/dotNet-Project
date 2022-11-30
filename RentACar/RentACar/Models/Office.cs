@@ -6,5 +6,7 @@ namespace RentACar.Models
     {
         public string Name { get; set; } = default!;
         public Location Location { get; set; } = default!;
+
+        public Guid LocationId { get; set; }
     }
 }
