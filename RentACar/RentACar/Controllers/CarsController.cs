@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Models;
+using RentACar.Models.DTOs.Cars;
+using RentACar.Services.Cars;
 
 namespace RentACar.Controllers
 {
@@ -8,10 +11,39 @@ namespace RentACar.Controllers
     public class CarsController : ControllerBase
     {
         /*
-            GET - luam toate masinile - toata lumea
-            POST - adaugam o masina noua - doar empployees
             POST - Inchiriem o masina - toata lumea
-            DELETE - stergem o masina dupa id - doar employees
         */
+        private ICarsService _carService;
+
+        public CarsController(ICarsService carService)
+        {
+            _carService = carService;
+        }
+
+        [HttpGet("all"), Authorize]
+        public IAsyncEnumerable<Car> GetCars()
+        {
+            return _carService.GetAll();
+        }
+
+        [HttpPost("add"), Authorize(Roles = "Employee, Admin")]
+        public async Task<ActionResult<CarResponseDto>> AddCar(CarRequestDto car)
+        {
+            var carToCreate = new Car
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+            };
+            await _carService.Create(carToCreate);
+
+            return Ok(new CarResponseDto(carToCreate));
+        }
+
+        [HttpDelete("delete/{id}")]
+        public ActionResult DeleteCar(Guid id)
+        {
+            _carService.Delete(id);
+            return Ok();
+        }
     }
 }

@@ -40,6 +40,20 @@ namespace RentACar.Repositories.GenericRepository
             return _table.Find(id);
         }
 
+        public async IAsyncEnumerable<TEntity> GetAll()
+        {
+            var res = await _table.AsNoTracking().ToListAsync();
+            foreach(var i in res)
+            {
+                yield return i;
+            }
+        }
+
+        public void Delete(TEntity entity)
+        {
+             _table.Remove(entity);
+        }
+
         //to be implemented
     }
 }

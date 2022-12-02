@@ -65,7 +65,6 @@ namespace RentACar.Controllers
         }
 
         //Create new Employee endpoint\
-        //[Authorization(Roles.Admin)]
         [HttpPost("create-employee"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<CreateUserResponseDto>> CreateEmployee(UserRequestDto emp)
         {

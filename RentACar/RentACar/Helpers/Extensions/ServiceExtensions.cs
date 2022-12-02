@@ -1,8 +1,10 @@
 ﻿using RentACar.Helpers.JwtUtils;
+using RentACar.Repositories.CarsRepository;
 using RentACar.Repositories.JobsRepository;
 using RentACar.Repositories.LocationsRepository;
 using RentACar.Repositories.OfficeRepository;
 using RentACar.Repositories.UsersRepository;
+using RentACar.Services.Cars;
 using RentACar.Services.Jobs;
 using RentACar.Services.Locations;
 using RentACar.Services.Offices;
@@ -18,6 +20,7 @@ namespace RentACar.Helpers.Extensions
             services.AddTransient<IJobRepository, JobRepository>();
             services.AddTransient<ILocationRepository, LocationRepository>();
             services.AddTransient<IOfficeRepository, OfficeRepositorry>();
+            services.AddTransient<ICarRepository, CarRepository>();
 
             return services;
         }
@@ -28,6 +31,7 @@ namespace RentACar.Helpers.Extensions
             services.AddTransient<IJobsService, JobsService>();
             services.AddTransient<ILocationsService, LocationsService>();
             services.AddTransient<IOfficesService, OfficesService>();
+            services.AddTransient<ICarsService, CarsService>();
 
             return services;
         }
