@@ -19,6 +19,11 @@ namespace RentACar.Services.Users
             _jwtUtils = jwtUtils;
         }
 
+        public IEnumerable<User> GetEmployees()
+        {
+            return _userRepository.GetEmployees();
+        }
+
         public UserResponseDto Authentificate(UserRequestDto model)
         {
             var user = _userRepository.FindByEmail(model.Email);
@@ -41,6 +46,20 @@ namespace RentACar.Services.Users
         public async Task<User> GetById(Guid id)
         {
             return await _userRepository.FindByIdAsync(id);
+        }
+
+        public async Task<bool> Update(Guid id, UserRequestDto user)
+        {
+            var dbUser = await _userRepository.FindByIdAsync(id);
+            if (dbUser == null || !BCryptNet.Verify(user.Password, dbUser.PasswordHash))
+            {
+                return false;
+            }
+            dbUser.FirstName = user.FirstName;
+            dbUser.LastName = user.LastName;
+            dbUser.Email = user.Email;
+            await _userRepository.SaveAsync();
+            return true;
         }
 
         public async Task Delete(Guid id)

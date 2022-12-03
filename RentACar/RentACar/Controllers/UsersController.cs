@@ -24,6 +24,12 @@ namespace RentACar.Controllers
             _jobsService = jobsService;
         }
 
+        [HttpGet("all-employees"), Authorize(Roles = "Admin")]
+        public IEnumerable<User> GetEmployees()
+        {
+            return _userService.GetEmployees();
+        }
+
         //Create new Client endpoint(toti clientii au parola 1234)
         [HttpPost("create-client")]
         public async Task<ActionResult<CreateUserResponseDto>> CreateClient(UserRequestDto client)
@@ -97,6 +103,17 @@ namespace RentACar.Controllers
                 Email = userToCreate.Email,
                 RoleName = userToCreate.RoleName,
             });
+        }
+
+        [HttpPut("edit/{id}"), Authorize]
+        public async Task<ActionResult> EditUser(Guid id, [FromBody]UserRequestDto user)
+        {
+            var res = await _userService.Update(id, user);
+            if(!res)
+            {
+                return BadRequest();
+            }
+            return Ok();
         }
 
         [HttpDelete("delete/{id}"), Authorize]

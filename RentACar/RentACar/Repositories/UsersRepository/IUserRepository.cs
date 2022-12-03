@@ -6,5 +6,7 @@ namespace RentACar.Repositories.UsersRepository
     public interface IUserRepository : IGenericRepository<User>
     {
         User FindByEmail(string email);
+
+        IEnumerable<User> GetEmployees();
     }
 }
