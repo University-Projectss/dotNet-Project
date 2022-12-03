@@ -6,10 +6,10 @@ namespace RentACar.Repositories.GenericRepository
     {
         Task CreateAsync(TEntity entity);
         Task<bool> SaveAsync();
-        TEntity FindById(object id);
+        Task<TEntity> FindByIdAsync(object id);
         IAsyncEnumerable<TEntity> GetAll();
 
-        void Delete(TEntity entity);
+        Task Delete(TEntity entity);
 
         //to be implemented
     }

@@ -29,15 +29,16 @@ namespace RentACar.Repositories.GenericRepository
             }
             catch (SqlException ex)
             {
+                Console.WriteLine("Ceva nu e bine");
                 Console.WriteLine(ex);
             }
 
             return false;
         }
 
-        public TEntity FindById(object id)
+        public async Task<TEntity> FindByIdAsync(object id)
         {
-            return _table.Find(id);
+            return await _table.FindAsync(id);
         }
 
         public async IAsyncEnumerable<TEntity> GetAll()
@@ -49,7 +50,7 @@ namespace RentACar.Repositories.GenericRepository
             }
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
              _table.Remove(entity);
         }

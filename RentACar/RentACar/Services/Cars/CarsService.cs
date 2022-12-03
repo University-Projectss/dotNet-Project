@@ -23,11 +23,11 @@ namespace RentACar.Services.Cars
             return _carRepository.GetAll();
         }
 
-        public void Delete(Guid carId)
+        public async Task Delete(Guid carId)
         {
-            var carToDelete = _carRepository.FindById(carId);
-             _carRepository.Delete(carToDelete);
-            _carRepository.SaveAsync();
+            var carToDelete = await _carRepository.FindByIdAsync(carId);
+            await _carRepository.Delete(carToDelete);
+            await _carRepository.SaveAsync();
         }
     }
 }

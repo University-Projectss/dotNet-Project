@@ -21,7 +21,12 @@ namespace RentACar.Controllers
             _jobService = jobService;
         }
 
-        // POST - add job - doar admin
+        [HttpGet("all"), Authorize]
+        public IAsyncEnumerable<Job> GetJobs()
+        {
+            return _jobService.GetAll();
+        }
+
         [HttpPost("create"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<string>> CreateJob(JobRequestDto job)
         {
@@ -35,6 +40,13 @@ namespace RentACar.Controllers
             await _jobService.Create(jobToCreate);
 
             return Ok("Job Creat");
+        }
+
+        [HttpDelete("delete/{id}"), Authorize(Roles = "Employee, Admin")]
+        public async Task<ActionResult> DeleteJob(Guid id)
+        {
+            await _jobService.Delete(id);
+            return Ok();
         }
     }
 }

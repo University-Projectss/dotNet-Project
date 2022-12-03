@@ -3,6 +3,7 @@ using RentACar.Models;
 using RentACar.Models.DTOs.Auth;
 using RentACar.Models.DTOs.Users;
 using RentACar.Repositories.UsersRepository;
+using System.Runtime.CompilerServices;
 using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace RentACar.Services.Users
@@ -37,9 +38,16 @@ namespace RentACar.Services.Users
             await _userRepository.SaveAsync();
         }
 
-        public User GetById(Guid id)
+        public async Task<User> GetById(Guid id)
         {
-            return _userRepository.FindById(id);
+            return await _userRepository.FindByIdAsync(id);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            var user = await _userRepository.FindByIdAsync(id);
+            await _userRepository.Delete(user);
+            await _userRepository.SaveAsync();
         }
     }
 }

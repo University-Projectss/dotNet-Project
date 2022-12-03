@@ -7,6 +7,6 @@ namespace RentACar.Services.Cars
         Task Create(Car newCar);
         IAsyncEnumerable<Car> GetAll();
 
-        void Delete(Guid carId);
+        Task Delete(Guid carId);
     }
 }

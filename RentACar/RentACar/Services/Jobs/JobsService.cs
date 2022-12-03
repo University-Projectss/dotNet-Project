@@ -25,5 +25,17 @@ namespace RentACar.Services.Jobs
         {
             return _jobRepository.FindByTitle(title);
         }
+
+        public IAsyncEnumerable<Job> GetAll()
+        {
+            return _jobRepository.GetAll();
+        }
+
+        public async Task Delete(Guid jobId)
+        {
+            var jobToDelete = await _jobRepository.FindByIdAsync(jobId);
+            await _jobRepository.Delete(jobToDelete);
+            await _jobRepository.SaveAsync();
+        }
     }
 }

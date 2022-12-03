@@ -47,10 +47,10 @@ namespace RentACar.Controllers
             return Ok(obj);
         }
 
-        [HttpDelete("delete/{id}")]
-        public ActionResult DeleteCar(Guid id)
+        [HttpDelete("delete/{id}"), Authorize(Roles = "Employee, Admin")]
+        public async Task<ActionResult> DeleteCar(Guid id)
         {
-            _carService.Delete(id);
+            await _carService.Delete(id);
             return Ok();
         }
     }

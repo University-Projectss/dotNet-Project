@@ -113,5 +113,12 @@ namespace RentACar.Controllers
                 RoleName = userToCreate.RoleName,
             });
         }
+
+        [HttpDelete("delete/{id}"), Authorize]
+        public async Task<ActionResult> DeleteUser(Guid id)
+        {
+            await _userService.Delete(id);
+            return Ok();
+        }
     }
 }
