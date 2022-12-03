@@ -3,11 +3,13 @@ using RentACar.Repositories.CarsRepository;
 using RentACar.Repositories.JobsRepository;
 using RentACar.Repositories.LocationsRepository;
 using RentACar.Repositories.OfficeRepository;
+using RentACar.Repositories.RentRepository;
 using RentACar.Repositories.UsersRepository;
 using RentACar.Services.Cars;
 using RentACar.Services.Jobs;
 using RentACar.Services.Locations;
 using RentACar.Services.Offices;
+using RentACar.Services.Rent;
 using RentACar.Services.Users;
 
 namespace RentACar.Helpers.Extensions
@@ -21,6 +23,7 @@ namespace RentACar.Helpers.Extensions
             services.AddTransient<ILocationRepository, LocationRepository>();
             services.AddTransient<IOfficeRepository, OfficeRepositorry>();
             services.AddTransient<ICarRepository, CarRepository>();
+            services.AddTransient<IRentedRepository, RentedRepository>();
 
             return services;
         }
@@ -32,6 +35,7 @@ namespace RentACar.Helpers.Extensions
             services.AddTransient<ILocationsService, LocationsService>();
             services.AddTransient<IOfficesService, OfficesService>();
             services.AddTransient<ICarsService, CarsService>();
+            services.AddTransient<IRentService, RentService>();
 
             return services;
         }

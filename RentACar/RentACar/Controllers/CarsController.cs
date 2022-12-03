@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.Models;
 using RentACar.Models.DTOs.Cars;
 using RentACar.Services.Cars;
+using RentACar.Services.Rent;
 
 namespace RentACar.Controllers
 {
@@ -10,14 +11,13 @@ namespace RentACar.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        /*
-            POST - Inchiriem o masina - toata lumea
-        */
         private ICarsService _carService;
+        private IRentService _rentedService;
 
-        public CarsController(ICarsService carService)
+        public CarsController(ICarsService carService, IRentService rentedService)
         {
             _carService = carService;
+            _rentedService = rentedService;
         }
 
         [HttpGet("all"), Authorize]
@@ -37,6 +37,14 @@ namespace RentACar.Controllers
             await _carService.Create(carToCreate);
 
             return Ok(new CarResponseDto(carToCreate));
+        }
+
+        [HttpPost("rent/{client}/{car}"), Authorize]
+        public async Task<ActionResult<Rented>> RentCar(Guid client, Guid car)
+        {
+            var obj = new RentCarRequestDto { carId = car, clientId = client };
+            await _rentedService.Create(obj);
+            return Ok(obj);
         }
 
         [HttpDelete("delete/{id}")]

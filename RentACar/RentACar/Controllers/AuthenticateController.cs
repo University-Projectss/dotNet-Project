@@ -39,7 +39,7 @@ namespace RentACar.Controllers
             return Ok(response);
         }
 
-        //Create new Client endpoint
+        //Create new Client endpoint(toti clientii au parola 1234)
         [HttpPost("create-client")]
         public async Task<ActionResult<CreateUserResponseDto>> CreateClient(UserRequestDto client)
         {
@@ -75,7 +75,7 @@ namespace RentACar.Controllers
                 RoleName = Roles.Employee,
                 Email = emp.Email,
                 PasswordHash = BCryptNet.HashPassword(emp.Password),
-                JobId = _jobsService.getJobIdByTitle("Employee")
+                JobId = _jobsService.getJobIdByTitle("Employee")    
             };
             await _userService.Create(userToCreate);
 
