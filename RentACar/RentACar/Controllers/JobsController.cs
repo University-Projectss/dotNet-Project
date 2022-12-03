@@ -42,6 +42,17 @@ namespace RentACar.Controllers
             return Ok("Job Creat");
         }
 
+        [HttpPut("edit/{id}"), Authorize(Roles = "Admin")]
+        public async Task<ActionResult> UpdateJob(Guid id, [FromBody]JobRequestDto job)
+        {
+            var res = await _jobService.Update(id, job);
+            if (!res)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
         [HttpDelete("delete/{id}"), Authorize(Roles = "Employee, Admin")]
         public async Task<ActionResult> DeleteJob(Guid id)
         {

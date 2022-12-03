@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Models;
 using RentACar.Models.DTOs.Cars;
+using RentACar.Models.DTOs.Jobs;
 using RentACar.Services.Cars;
 using RentACar.Services.Rent;
 
@@ -45,6 +46,17 @@ namespace RentACar.Controllers
             var obj = new RentCarRequestDto { carId = car, clientId = client };
             await _rentedService.Create(obj);
             return Ok(obj);
+        }
+
+        [HttpPut("edit/{id}"), Authorize(Roles = "Employee, Admin")]
+        public async Task<ActionResult> UpdateCar(Guid id, [FromBody] CarRequestDto car)
+        {
+            var res = await _carService.Update(id, car);
+            if (!res)
+            {
+                return BadRequest();
+            }
+            return Ok();
         }
 
         [HttpDelete("delete/{id}"), Authorize(Roles = "Employee, Admin")]

@@ -1,4 +1,6 @@
 ﻿using RentACar.Models;
+using RentACar.Models.DTOs.Cars;
+using RentACar.Models.DTOs.Jobs;
 using RentACar.Repositories.CarsRepository;
 
 namespace RentACar.Services.Cars
@@ -21,6 +23,19 @@ namespace RentACar.Services.Cars
         public IAsyncEnumerable<Car> GetAll()
         {
             return _carRepository.GetAll();
+        }
+
+        public async Task<bool> Update(Guid id, CarRequestDto car)
+        {
+            var dbCar = await _carRepository.FindByIdAsync(id);
+            if (dbCar == null)
+            {
+                return false;
+            }
+            dbCar.Model = car.Model;
+            dbCar.Brand = car.Brand;
+            await _carRepository.SaveAsync();
+            return true;
         }
 
         public async Task Delete(Guid carId)

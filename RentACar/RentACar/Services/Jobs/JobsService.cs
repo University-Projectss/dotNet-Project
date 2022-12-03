@@ -1,9 +1,7 @@
-﻿using RentACar.Helpers.JwtUtils;
-using RentACar.Models;
-using RentACar.Models.Enums;
+﻿using RentACar.Models;
+using RentACar.Models.DTOs.Jobs;
 using RentACar.Repositories.JobsRepository;
-using RentACar.Repositories.UsersRepository;
-using System.Runtime.InteropServices;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace RentACar.Services.Jobs
 {
@@ -29,6 +27,21 @@ namespace RentACar.Services.Jobs
         public IAsyncEnumerable<Job> GetAll()
         {
             return _jobRepository.GetAll();
+        }
+
+        public async Task<bool> Update(Guid id, JobRequestDto job)
+        {
+            var dbJob = await _jobRepository.FindByIdAsync(id);
+            if (dbJob == null)
+            {
+                return false;
+            }
+            dbJob.Title = job.Title;
+            dbJob.Description = job.Description;
+            dbJob.MinSalary = job.MinSalary;
+            dbJob.MaxSalary = job.MaxSalary;
+            await _jobRepository.SaveAsync();
+            return true;
         }
 
         public async Task Delete(Guid jobId)
