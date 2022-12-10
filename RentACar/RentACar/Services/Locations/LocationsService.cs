@@ -1,4 +1,5 @@
 ﻿using RentACar.Models;
+using RentACar.Repositories;
 using RentACar.Repositories.JobsRepository;
 using RentACar.Repositories.LocationsRepository;
 
@@ -6,22 +7,22 @@ namespace RentACar.Services.Locations
 {
     public class LocationsService : ILocationsService
     {
-        public ILocationRepository _locationRepository;
+        public IUnitOfWork _unitOfWork;
 
-        public LocationsService(ILocationRepository locationRepository)
+        public LocationsService(IUnitOfWork unitOfWork)
         {
-            _locationRepository = locationRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Create(Location newLocation)
         {
-            await _locationRepository.CreateAsync(newLocation);
-            await _locationRepository.SaveAsync();
+            await _unitOfWork.LocationRepository.CreateAsync(newLocation);
+            await _unitOfWork.SaveAsync();
         }
 
         public Guid getIdByLocation(string city, string street)
         {
-            return _locationRepository.FindByCityAndStreet(city, street);
+            return _unitOfWork.LocationRepository.FindByCityAndStreet(city, street);
         }
     }
 }

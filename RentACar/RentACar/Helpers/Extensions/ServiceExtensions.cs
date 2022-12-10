@@ -1,4 +1,5 @@
 ﻿using RentACar.Helpers.JwtUtils;
+using RentACar.Repositories;
 using RentACar.Repositories.CarsRepository;
 using RentACar.Repositories.JobsRepository;
 using RentACar.Repositories.LocationsRepository;
@@ -24,6 +25,7 @@ namespace RentACar.Helpers.Extensions
             services.AddTransient<IOfficeRepository, OfficeRepositorry>();
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddTransient<IRentedRepository, RentedRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

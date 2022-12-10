@@ -2,6 +2,7 @@
 using RentACar.Models;
 using RentACar.Models.DTOs.Auth;
 using RentACar.Models.DTOs.Users;
+using RentACar.Repositories;
 using RentACar.Repositories.UsersRepository;
 using System.Runtime.CompilerServices;
 using BCryptNet = BCrypt.Net.BCrypt;
@@ -10,23 +11,23 @@ namespace RentACar.Services.Users
 {
     public class UsersService : IUsersService
     {
-        public IUserRepository _userRepository;
+        public IUnitOfWork _unitOfWork;
         private IJwtUtils  _jwtUtils;
 
-        public UsersService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        public UsersService(IUnitOfWork unitOfWork, IJwtUtils jwtUtils)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
             _jwtUtils = jwtUtils;
         }
 
         public IEnumerable<User> GetEmployees()
         {
-            return _userRepository.GetEmployees();
+            return _unitOfWork.UserRepository.GetEmployees();
         }
 
         public UserResponseDto Authentificate(UserRequestDto model)
         {
-            var user = _userRepository.FindByEmail(model.Email);
+            var user = _unitOfWork.UserRepository.FindByEmail(model.Email);
             if (user == null || !BCryptNet.Verify(model.Password, user.PasswordHash))
             {
                 return null;
@@ -39,18 +40,18 @@ namespace RentACar.Services.Users
 
         public async Task Create(User newUser)
         {
-            await _userRepository.CreateAsync(newUser);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.UserRepository.CreateAsync(newUser);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task<User> GetById(Guid id)
         {
-            return await _userRepository.FindByIdAsync(id);
+            return await _unitOfWork.UserRepository.FindByIdAsync(id);
         }
 
         public async Task<bool> Update(Guid id, UserRequestDto user)
         {
-            var dbUser = await _userRepository.FindByIdAsync(id);
+            var dbUser = await _unitOfWork.UserRepository.FindByIdAsync(id);
             if (dbUser == null || !BCryptNet.Verify(user.Password, dbUser.PasswordHash))
             {
                 return false;
@@ -58,15 +59,15 @@ namespace RentACar.Services.Users
             dbUser.FirstName = user.FirstName;
             dbUser.LastName = user.LastName;
             dbUser.Email = user.Email;
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             return true;
         }
 
         public async Task Delete(Guid id)
         {
-            var user = await _userRepository.FindByIdAsync(id);
-            await _userRepository.Delete(user);
-            await _userRepository.SaveAsync();
+            var user = await _unitOfWork.UserRepository.FindByIdAsync(id);
+            await _unitOfWork.UserRepository.Delete(user);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

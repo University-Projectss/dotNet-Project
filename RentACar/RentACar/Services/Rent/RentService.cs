@@ -1,5 +1,6 @@
 ﻿using RentACar.Models;
 using RentACar.Models.DTOs.Cars;
+using RentACar.Repositories;
 using RentACar.Repositories.CarsRepository;
 using RentACar.Repositories.RentRepository;
 
@@ -7,17 +8,18 @@ namespace RentACar.Services.Rent
 {
     public class RentService : IRentService
     {
-        public IRentedRepository _rentedRepository;
+        
+        public IUnitOfWork _unitOfWork;
 
-        public RentService(IRentedRepository rentedRepository)
+        public RentService(IUnitOfWork unitOfWork)
         {
-            _rentedRepository = rentedRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Create(RentCarRequestDto newRent)
         {
-            await _rentedRepository.CreateAsync(new Rented { CarId = newRent.carId, ClientId = newRent.clientId});
-            await _rentedRepository.SaveAsync();
+            await _unitOfWork.RentRepository.CreateAsync(new Rented { CarId = newRent.carId, ClientId = newRent.clientId});
+            await _unitOfWork.SaveAsync();
         }
     }
 }

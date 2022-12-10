@@ -21,21 +21,6 @@ namespace RentACar.Repositories.GenericRepository
             await _table.AddAsync(entity);
         }
 
-        public async Task<bool> SaveAsync()
-        {
-            try
-            {
-                return await _dataBaseContext.SaveChangesAsync() > 0;
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Ceva nu e bine");
-                Console.WriteLine(ex);
-            }
-
-            return false;
-        }
-
         public async Task<TEntity> FindByIdAsync(object id)
         {
             return await _table.FindAsync(id);
