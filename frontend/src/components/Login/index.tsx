@@ -14,11 +14,13 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { RCInput } from "../Common/RCInput";
+import { useCustomToast } from "../Common/useCustomToast";
 import { apiClient } from "../Utils/apiClient";
 import { requiredField } from "../Utils/inputValidators";
 import { LoginInterface } from "./loginTypes";
 
 export const Login = () => {
+  const toast = useCustomToast();
   const navigate = useNavigate();
   const location = useLocation();
   const userContext = useContext(UserContext);
@@ -99,12 +101,13 @@ export const Login = () => {
             ...res.data,
           });
           localStorage.setItem("token", res.data.token);
+          toast.createToast("Login succesfully!", "success");
           if (location.pathname === "/login") navigate("/");
         })
         .catch((err) => {
           setLoading(false);
           console.log(err);
-          alert("Incorect email or password sir!");
+          toast.createToast("Incorect email or password!", "error");
         });
     }
   };
