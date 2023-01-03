@@ -8,11 +8,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useCustomToast } from "../Common/useCustomToast";
 import { apiClient, authorise } from "../Utils/apiClient";
 import { CarInterface } from "./types";
 
 export const Home = () => {
+  const navigate = useNavigate();
   const toast = useCustomToast();
   const [cars, setCars] = useState<CarInterface[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -64,19 +66,7 @@ export const Home = () => {
                   p={2}
                   cursor="pointer"
                   onClick={() => {
-                    setLoading(true);
-                    apiClient
-                      .get(
-                        `api/cars/car-details/${car.brand}/${car.model}`,
-                        authorise()
-                      )
-                      .then((res) => {
-                        console.log(res.data);
-                        setLoading(false);
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
+                    navigate(`/car/${car.brand}/${car.model}`);
                   }}
                 >
                   <Box>
