@@ -75,13 +75,16 @@ export const Login = () => {
             ...userContext.user,
             roleName: res.data.roleName,
           });
-          alert("Now please login into your new account!");
+          toast.createToast(
+            "Now please login into your new account!",
+            "success"
+          );
           setSignUp(false);
         })
         .catch((err) => {
           setLoading(false);
           console.log(err);
-          alert("Something went wrong sir!");
+          toast.createToast("Something went wrong sir!", "error");
         });
     } else {
       //login, aka register

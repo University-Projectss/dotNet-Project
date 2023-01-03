@@ -1,6 +1,7 @@
 import { Flex, Image, Spinner, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { LogOutButton } from "../Common/LogOutButton";
 import { apiClient, authorise } from "../Utils/apiClient";
 
 export const CarDetails = () => {
@@ -26,6 +27,7 @@ export const CarDetails = () => {
 
   return (
     <VStack h="100%" p={10}>
+      <LogOutButton />
       <Text margin={5} fontSize={30} fontFamily="serif" fontWeight="semibold">
         {brand + " " + model}
       </Text>

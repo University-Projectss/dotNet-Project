@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { LogOutButton } from "../Common/LogOutButton";
 import { useCustomToast } from "../Common/useCustomToast";
 import { apiClient, authorise } from "../Utils/apiClient";
 import { CarInterface } from "./types";
@@ -45,6 +46,7 @@ export const Home = () => {
 
   return (
     <VStack h="100%" p={10}>
+      <LogOutButton />
       <Text margin={5} fontSize={30} fontFamily="serif" fontWeight="semibold">
         Welcom to Rent a Car!
       </Text>
