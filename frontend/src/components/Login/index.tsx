@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RCInput } from "../Common/RCInput";
+import { apiClient } from "../Utils/apiClient";
 import { requiredField } from "../Utils/inputValidators";
 import { LoginInterface } from "./loginTypes";
 
@@ -52,6 +53,19 @@ export const Login = () => {
       //create customer
     } else {
       //login, aka register
+      apiClient
+        .post("api/authenticate/register", {
+          firstName: "",
+          lastName: "",
+          email: userDetails.email,
+          password: userDetails.password,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
