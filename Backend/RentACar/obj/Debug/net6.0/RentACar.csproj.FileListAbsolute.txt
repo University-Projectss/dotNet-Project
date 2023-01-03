@@ -178,3 +178,9 @@ C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\obj\Debug\net6.0\refin
 C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\obj\Debug\net6.0\RentACar.pdb
 C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\obj\Debug\net6.0\RentACar.genruntimeconfig.cache
 C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\obj\Debug\net6.0\ref\RentACar.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\bin\Debug\net6.0\serpapi.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\bin\Debug\net6.0\Google.Api.Gax.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\bin\Debug\net6.0\GoogleApi.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\bin\Debug\net6.0\Microsoft.Extensions.Http.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\LTP00061\Desktop\dotNet-Project\Backend\RentACar\bin\Debug\net6.0\BouncyCastle.Crypto.dll
