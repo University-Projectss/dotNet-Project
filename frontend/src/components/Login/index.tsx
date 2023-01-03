@@ -6,16 +6,23 @@ import {
   InputGroup,
   InputRightElement,
   Spacer,
+  Spinner,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 import { RCInput } from "../Common/RCInput";
 import { apiClient } from "../Utils/apiClient";
 import { requiredField } from "../Utils/inputValidators";
 import { LoginInterface } from "./loginTypes";
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const userContext = useContext(UserContext);
+
   const [userDetails, setUserDetails] = useState<LoginInterface>({
     firstName: "",
     lastName: "",
@@ -23,9 +30,9 @@ export const Login = () => {
     password: "",
   });
   const [error, setError] = useState<LoginInterface>(userDetails);
-
   const [show, setShow] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const changePasswordVisibility = () => setShow(!show);
   const handleSignUpClick = () => setSignUp(true);
 
@@ -51,8 +58,32 @@ export const Login = () => {
       });
     } else if (signUp) {
       //create customer
+      setLoading(true);
+      apiClient
+        .post("api/users/create-client", {
+          firstName: userDetails.firstName,
+          lastName: userDetails.lastName,
+          email: userDetails.email,
+          password: userDetails.password,
+        })
+        .then((res) => {
+          setLoading(false);
+          //console.log(res.data);
+          userContext.setUser({
+            ...userContext.user,
+            roleName: res.data.roleName,
+          });
+          alert("Now please login into your new account!");
+          setSignUp(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+          alert("Something went wrong sir!");
+        });
     } else {
       //login, aka register
+      setLoading(true);
       apiClient
         .post("api/authenticate/register", {
           firstName: "whatever",
@@ -61,13 +92,29 @@ export const Login = () => {
           password: userDetails.password,
         })
         .then((res) => {
-          console.log(res.data);
+          setLoading(false);
+          //console.log(res.data);
+          userContext.setUser({
+            ...userContext.user,
+            ...res.data,
+          });
+          localStorage.setItem("token", res.data.token);
+          if (location.pathname === "/login") navigate("/");
         })
         .catch((err) => {
+          setLoading(false);
           console.log(err);
+          alert("Incorect email or password sir!");
         });
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex
@@ -138,9 +185,13 @@ export const Login = () => {
         </HStack>
       </VStack>
       <Box position="absolute" bottom="20vh" textAlign="center">
-        <Button marginBottom={2} onClick={handleLoginClick}>
-          {signUp ? "Sign Up" : "Login"}
-        </Button>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Button marginBottom={2} onClick={handleLoginClick}>
+            {signUp ? "Sign Up" : "Login"}
+          </Button>
+        )}
 
         {!signUp && (
           <Flex>
