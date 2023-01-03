@@ -1,7 +1,7 @@
 import { Flex, Image, Spinner, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiClient, authorise } from "../components/Utils/apiClient";
+import { apiClient, authorise } from "../Utils/apiClient";
 
 export const CarDetails = () => {
   const { brand } = useParams();
